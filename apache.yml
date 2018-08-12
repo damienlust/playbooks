@@ -1,0 +1,13 @@
+---
+- hosts: 192.168.0.8
+  become: yes
+  become_user: ansiuser 
+  tasks:
+    - name: Installs apache web server
+      yum: pkg=httpd state=installed update_cache=true
+      notify:
+        - start apachce
+
+  handlers:
+    - name: start apache
+      service: name=httpd state=started
